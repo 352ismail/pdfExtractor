@@ -1,0 +1,25 @@
+        def add_img():
+            precentage_dicide = 0
+            open_pdf = fitz.open(pdf_location)
+
+            for page in open_pdf:
+                pix = page.get_pixmap()
+                pix1 = fitz.Pixmap(pix,0) if pix.alpha else pix
+                img = pix1.tobytes("ppm")
+                timg = PhotoImage(data = img)
+                self.img_object_li.append(timg)
+                if bar==True and load=="after":
+                    precentage_dicide = precentage_dicide + 1
+                    percentage_view = (float(precentage_dicide)/float(len(open_pdf))*float(100))
+                    loading['value'] = percentage_view
+                    percentage_load.set(f"Please wait!, your pdf is loading {int(math.floor(percentage_view))}%")
+            if bar==True and load=="after":
+                loading.pack_forget()
+                self.display_msg.pack_forget()
+
+            for i in self.img_object_li:
+                self.text.image_create(END,image=i)
+                self.text.insert(END,"\n\n")
+            self.text.configure(state="disabled")
+
+#this code need to be chaged in Activated Environment to load PDF Otherwise it will not be loaded 

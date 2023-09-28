@@ -1,4 +1,5 @@
 pdfplumber
 openai
 python-docx
-
+tkPDFViewer
+tk
